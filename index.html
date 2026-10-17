@@ -1,0 +1,395 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Unknown System</title>
+<style>
+:root{--bg:#080b16;--panel:#11182a;--line:#293754;--text:#edf3ff;--muted:#9aaaca;--cyan:#63f2d2}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at top,#182649,#080b16 60%);color:var(--text);font:15px/1.45 system-ui,sans-serif;min-height:100vh}
+button{font:inherit;cursor:pointer;border:1px solid #385071;background:#1b2b47;color:var(--text);border-radius:12px;padding:10px 13px}
+button:hover{border-color:var(--cyan);filter:brightness(1.12)}
+button:disabled{opacity:.35;cursor:not-allowed}
+.wrap{max-width:1150px;margin:auto;padding:20px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.logo{font-weight:900;letter-spacing:.14em;font-size:13px;color:var(--cyan)}
+.rank{font-size:12px;color:var(--muted);border:1px solid var(--line);padding:6px 10px;border-radius:99px}
+.hero{display:grid;grid-template-columns:1.25fr .75fr;gap:16px}
+.panel{background:linear-gradient(145deg,#151e33ee,#0e1424ee);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 14px 40px #0003}
+.scene{min-height:300px;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.scene:before{content:"";position:absolute;width:310px;height:310px;border-radius:50%;background:radial-gradient(circle,#5af4d62c,transparent 68%);animation:pulse 3s infinite}
+.scene>*{position:relative}
+.eyebrow{color:var(--muted);font-size:11px;letter-spacing:.18em;text-transform:uppercase}
+.core{font-size:96px;line-height:1.2;filter:drop-shadow(0 0 24px #63f2d277);cursor:pointer;user-select:none}
+.hint{color:var(--muted);font-size:12px}
+.mainbtn{margin-top:12px;background:linear-gradient(120deg,#47d9c1,#7b9bff);color:#06131e;border:0;font-weight:900;padding:12px 22px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.stat{background:#0b1120;border:1px solid #222f4b;border-radius:13px;padding:12px}
+.stat span{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.1em}
+.stat strong{font-size:23px;display:block;margin-top:3px}
+.side h2,.sectionhead h2{margin:0;font-size:17px}
+.side p{color:var(--muted);margin:7px 0 15px;font-size:13px}
+.meter{height:8px;background:#26324c;border-radius:99px;overflow:hidden;margin:8px 0 14px}
+.meter div{height:100%;width:0;background:linear-gradient(90deg,var(--cyan),#829cff);transition:width .2s}
+.mission{padding:11px;background:#0b1120;border-radius:12px;margin:9px 0;border:1px solid #26324c}
+.mission strong{display:block;font-size:13px}
+.mission small{color:var(--muted)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 12px}
+.tabs button.active{background:var(--cyan);color:#07131b;border-color:var(--cyan);font-weight:800}
+.sectionhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:13px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.upgrade{background:#0c1323;border:1px solid #293754;border-radius:15px;padding:14px;display:flex;flex-direction:column;min-height:170px}
+.upgrade .emoji{font-size:27px}
+.upgrade h3{font-size:14px;margin:7px 0 4px}
+.upgrade p{color:var(--muted);font-size:12px;margin:0 0 12px;flex:1}
+.upgrade button{width:100%;font-size:12px}
+.upgrade .owned{color:var(--cyan);font-size:11px;margin:8px 0}
+.bottom{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.log{height:150px;overflow:auto;color:var(--muted);font-size:12px;display:flex;flex-direction:column-reverse;gap:7px}
+.log div{border-left:2px solid #385071;padding-left:9px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#e6fff9;color:#081a20;padding:11px 18px;border-radius:99px;font-weight:800;box-shadow:0 8px 30px #0008;opacity:0;pointer-events:none;transition:.25s}
+.toast.show{opacity:1}
+.footer{color:#667594;text-align:center;font-size:11px;padding:20px}
+@keyframes pulse{50%{transform:scale(1.12);opacity:.7}}
+@media(max-width:760px){.wrap{padding:12px}.hero,.bottom{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}.scene{min-height:290px}.core{font-size:80px}}
+@media(max-width:420px){.grid{grid-template-columns:1fr 1fr}.panel{padding:13px}.upgrade{padding:11px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div><div class="logo">✦ UNKNOWN SYSTEM</div>
+  <div style="font-size:12px;color:var(--muted);margin-top:4px">A tiny universe. A very big number.</div></div>
+  <div class="rank" id="rank">RANK 0 · ROOKIE</div>
+</header>
+
+<main class="hero">
+<section class="panel">
+  <div class="scene">
+    <div class="eyebrow" id="stageLabel">SIGNAL DETECTED</div>
+    <div class="core" id="core" title="Click to collect">✧</div>
+    <div style="font-size:23px;font-weight:900" id="coreName">The Spark</div>
+    <div class="hint" id="coreHint">Click the spark to collect energy.</div>
+    <button class="mainbtn" id="collect">HARVEST ✦</button>
+  </div>
+  <div class="stats">
+    <div class="stat"><span>Energy</span><strong id="energy">0</strong></div>
+    <div class="stat"><span>Per second</span><strong id="rate">0</strong></div>
+    <div class="stat"><span>Click power</span><strong id="power">1</strong></div>
+    <div class="stat"><span>Total collected</span><strong id="total">0</strong></div>
+  </div>
+</section>
+
+<aside class="panel side">
+  <h2>Expedition report</h2>
+  <p>Build your operation. Discover what happens when the numbers get silly.</p>
+  <div class="eyebrow">NEXT BREAKTHROUGH</div>
+  <strong id="nextTitle">Wake the machine</strong>
+  <div class="meter"><div id="progress"></div></div>
+  <div class="hint" id="progressText">0 / 100 lifetime energy</div>
+  <div class="mission">
+    <strong>📡 Daily transmission</strong>
+    <small id="missionText">Collect 1000 energy</small>
+    <div class="meter"><div id="missionBar"></div></div>
+    <button id="claim" disabled>Claim +500 energy</button>
+  </div>
+  <div class="mission">
+    <strong>⚡ Passive production</strong>
+    <small>Your equipment keeps working while this page is open.</small>
+  </div>
+  <button id="prestige" style="width:100%;margin-top:5px" disabled>↻ Reboot reality · Need 10K total</button>
+  <p class="hint" style="margin-top:10px">Reboot resets upgrades and energy, but grants permanent multipliers.</p>
+</aside>
+</main>
+
+<nav class="tabs" id="tabs">
+  <button class="active" data-tab="all">All upgrades</button>
+  <button data-tab="click">Click gear</button>
+  <button data-tab="idle">Auto machines</button>
+  <button data-tab="lab">Research lab</button>
+</nav>
+
+<section class="panel">
+  <div class="sectionhead">
+    <h2 id="upgradeTitle">Upgrade your operation</h2>
+    <span class="hint" id="upgradeCount">0 owned</span>
+  </div>
+  <div class="grid" id="upgrades"></div>
+</section>
+
+<div class="bottom">
+<section class="panel">
+  <div class="sectionhead"><h2>Milestones</h2><span class="hint">Keep pushing</span></div>
+  <div id="milestones"></div>
+</section>
+<section class="panel">
+  <div class="sectionhead"><h2>Activity feed</h2><button id="save" style="padding:6px 10px;font-size:12px">Save now</button></div>
+  <div class="log" id="log"></div>
+</section>
+</div>
+<div class="footer">Progress saves automatically in this browser · No downloads, accounts, or internet required.</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+(() => {
+const $ = id => document.getElementById(id);
+
+const defs = [
+{id:"gloves",name:"Magnetic Gloves",emoji:"🧤",type:"click",base:15,growth:1.55,desc:"+1 energy per click.",click:1},
+{id:"lens",name:"Prism Lens",emoji:"🔮",type:"click",base:90,growth:1.7,desc:"Focuses clicks for +6 power.",click:6},
+{id:"drone",name:"Collector Drone",emoji:"🛸",type:"idle",base:35,growth:1.48,desc:"A little helper that gathers energy.",rate:0.7},
+{id:"bot",name:"Scrap Bot",emoji:"🤖",type:"idle",base:180,growth:1.52,desc:"Turns scrap into steady energy.",rate:3.8},
+{id:"reactor",name:"Mini Reactor",emoji:"⚛️",type:"idle",base:850,growth:1.58,desc:"A suspiciously efficient power source.",rate:19},
+{id:"portal",name:"Pocket Portal",emoji:"🌀",type:"idle",base:4800,growth:1.62,desc:"Imports energy from somewhere else.",rate:105},
+{id:"algorithm",name:"Lucky Algorithm",emoji:"🧠",type:"lab",base:250,growth:1.8,desc:"All production +20%.",mult:0.2},
+{id:"crystal",name:"Prismatic Core",emoji:"💎",type:"lab",base:1600,growth:1.85,desc:"All production +75%.",mult:0.75},
+{id:"quantum",name:"Quantum Theory",emoji:"🧬",type:"lab",base:12000,growth:1.95,desc:"All production ×2.",factor:2}
+];
+
+const fresh = () => ({
+energy:0,total:0,clicks:0,prestige:0,
+owned:{},claimed:false,mission:0
+});
+
+let s=fresh(),tab="all",last=Date.now(),toastTimer;
+
+try {
+  const old=JSON.parse(localStorage.getItem("unknown-system-save"));
+  if(old&&typeof old==="object"&&old.owned)
+    s={...fresh(),...old,owned:old.owned||{}};
+} catch(e) {}
+
+function fmt(n){
+  if(!Number.isFinite(n))return "∞";
+  if(n<1000)return n.toLocaleString("en-US",{maximumFractionDigits:n<10?1:0});
+  const units=["K","M","B","T","Qa","Qi","Sx","Sp","Oc","No","Dc"];
+  let i=-1;
+  while(n>=1000&&i<units.length-1){n/=1000;i++;}
+  return n.toFixed(n<10?2:n<100?1:0)+units[i];
+}
+
+function count(id){return s.owned[id]||0}
+function cost(d){return Math.floor(d.base*Math.pow(d.growth,count(d.id)))}
+
+function mult(){
+  let m=1+s.prestige*.5;
+  for(const d of defs){
+    if(d.mult)m+=count(d.id)*d.mult;
+    if(d.factor)m*=Math.pow(d.factor,count(d.id));
+  }
+  return m;
+}
+
+function power(){
+  return (1+defs.filter(d=>d.type==="click")
+    .reduce((a,d)=>a+count(d.id)*(d.click||0),0))*mult();
+}
+
+function rate(){
+  return defs.reduce((a,d)=>a+count(d.id)*(d.rate||0),0)*mult();
+}
+
+function add(n){
+  if(!Number.isFinite(n)||n<=0)return;
+  s.energy+=n;
+  s.total+=n;
+  s.mission+=n;
+}
+
+function note(t){
+  const el=document.createElement("div");
+  el.textContent=t;
+  $("log").prepend(el);
+  while($("log").children.length>35)$("log").lastChild.remove();
+}
+
+function toast(t){
+  $("toast").textContent=t;
+  $("toast").classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>$("toast").classList.remove("show"),1700);
+}
+
+function collect(){
+  const p=power();
+  add(p);
+  s.clicks++;
+  if(s.clicks%20===0)note("Your fingers are basically industrial equipment.");
+  render();
+  if(s.total>=100&&s.total-p<100)toast("First breakthrough unlocked!");
+}
+
+function buy(id){
+  const d=defs.find(x=>x.id===id),c=cost(d);
+  if(s.energy<c)return;
+  s.energy-=c;
+  s.owned[id]=count(id)+1;
+  note("Purchased: "+d.name+".");
+  if(s.owned[id]===1)toast(d.name+" online");
+  render();
+}
+
+function renderUpgrades(){
+  const list=defs.filter(d=>tab==="all"||d.type===tab);
+  $("upgrades").innerHTML="";
+
+  list.forEach(d=>{
+    const c=cost(d),owned=count(d.id);
+    const el=document.createElement("article");
+    el.className="upgrade";
+    el.innerHTML=`
+      <div class="emoji">${d.emoji}</div>
+      <h3>${d.name}</h3>
+      <p>${d.desc}</p>
+      <div class="owned">OWNED: ${owned}</div>
+      <button ${s.energy<c?"disabled":""} data-buy="${d.id}">
+        Upgrade · ✦ ${fmt(c)}
+      </button>`;
+    $("upgrades").appendChild(el);
+  });
+
+  $("upgradeCount").textContent=
+    defs.reduce((a,d)=>a+count(d.id),0)+" owned";
+
+  $("upgrades").querySelectorAll("[data-buy]").forEach(b=>
+    b.addEventListener("click",()=>buy(b.dataset.buy))
+  );
+
+  const names={
+    all:"Upgrade your operation",
+    click:"Make every click count",
+    idle:"Machines that work for you",
+    lab:"Break the rules of energy"
+  };
+  $("upgradeTitle").textContent=names[tab];
+}
+
+function render(){
+  $("energy").textContent=fmt(s.energy);
+  $("rate").textContent=fmt(rate());
+  $("power").textContent=fmt(power());
+  $("total").textContent=fmt(s.total);
+
+  const tier=s.total>=1e7?4:s.total>=1e5?3:s.total>=1000?2:s.total>=100?1:0;
+  const tiers=[
+    ["The Spark","✧","SIGNAL DETECTED","Click the spark to collect energy."],
+    ["The Workshop","✦","SIGNAL STABILIZED","Your little operation is growing."],
+    ["The Rift","◈","ANOMALY DETECTED","The energy readings make no sense."],
+    ["The Nebula","✺","COSMIC OUTPUT","You are producing energy at an alarming rate."],
+    ["The Beyond","☼","REALITY UNSTABLE","There may not be a number big enough."]
+  ];
+
+  $("coreName").textContent=tiers[tier][0];
+  $("core").textContent=tiers[tier][1];
+  $("stageLabel").textContent=tiers[tier][2];
+  $("coreHint").textContent=tiers[tier][3];
+
+  const goal=tier===0?100:tier===1?1000:tier===2?1e5:tier===3?1e7:1e9;
+  const prev=[0,100,1000,1e5,1e7][tier];
+
+  $("nextTitle").textContent=tier===4?"Reach the impossible":"Unlock "+tiers[tier+1][0];
+  $("progress").style.width=Math.min(100,Math.max(0,(s.total-prev)/(goal-prev)*100))+"%";
+  $("progressText").textContent=fmt(s.total)+" / "+fmt(goal)+" lifetime energy";
+
+  $("missionText").textContent="Collect 1K energy total ("+fmt(Math.min(s.mission,1000))+"/1K)";
+  $("missionBar").style.width=Math.min(100,s.mission/10)+"%";
+  $("claim").disabled=s.mission<1000||s.claimed;
+  $("claim").textContent=s.claimed?"Claimed ✓":"Claim +500 energy";
+
+  $("prestige").disabled=s.total<10000;
+
+  const ms=[
+    ["First spark",100],
+    ["Automated",1000],
+    ["Reality bender",10000],
+    ["Millionaire",1e6],
+    ["Cosmic tycoon",1e9]
+  ];
+
+  $("milestones").innerHTML=ms.map(([n,v])=>`
+    <div class="mission" style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+      <div>
+        <strong>${s.total>=v?"✓ ":""}${n}</strong>
+        <small>${fmt(v)} lifetime energy</small>
+      </div>
+      <span style="color:${s.total>=v?"var(--cyan)":"var(--muted)"}">
+        ${s.total>=v?"DONE":"LOCKED"}
+      </span>
+    </div>`).join("");
+
+  $("rank").textContent="RANK "+s.prestige+" · "+(s.prestige?"REALITY ENGINEER":"ROOKIE");
+  renderUpgrades();
+}
+
+function save(){
+  try{
+    localStorage.setItem("unknown-system-save",JSON.stringify(s));
+    toast("Progress saved.");
+  }catch(e){toast("Browser storage unavailable.");}
+}
+
+function saveSilent(){
+  try{localStorage.setItem("unknown-system-save",JSON.stringify(s));}
+  catch(e){}
+}
+
+$("collect").addEventListener("click",collect);
+$("core").addEventListener("click",collect);
+
+$("tabs").querySelectorAll("button").forEach(b=>
+  b.addEventListener("click",()=>{
+    tab=b.dataset.tab;
+    $("tabs").querySelectorAll("button").forEach(x=>
+      x.classList.toggle("active",x===b)
+    );
+    renderUpgrades();
+  })
+);
+
+$("claim").addEventListener("click",()=>{
+  if(s.mission>=1000&&!s.claimed){
+    s.claimed=true;
+    add(500);
+    note("Transmission decoded. Bonus energy received.");
+    render();
+    toast("Mission complete! +500");
+  }
+});
+
+$("prestige").addEventListener("click",()=>{
+  if(s.total<10000)return;
+  if(!confirm("Reboot reality? Energy and upgrades reset, but you gain a permanent +50% multiplier."))return;
+  const p=s.prestige+1;
+  s=fresh();
+  s.prestige=p;
+  note("Reality rebooted. Permanent multiplier increased.");
+  saveSilent();
+  render();
+  toast("Reality rebooted · ×"+(1+p*.5));
+});
+
+$("save").addEventListener("click",save);
+
+setInterval(()=>{
+  const now=Date.now(),dt=Math.min((now-last)/1000,5);
+  last=now;
+  if(dt>0){
+    add(rate()*dt);
+    render();
+  }
+},250);
+
+setInterval(saveSilent,5000);
+window.addEventListener("beforeunload",saveSilent);
+
+note("A mysterious signal has found you.");
+note("Tip: machines generate energy automatically.");
+render();
+})();
+</script>
+</body>
+</html>
