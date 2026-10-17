@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Unknown System</title>
+<title>Unknown System Deluxe</title>
 <style>
 :root{--bg:#080b16;--panel:#11182a;--line:#293754;--text:#edf3ff;--muted:#9aaaca;--cyan:#63f2d2}
 *{box-sizing:border-box}
@@ -12,12 +12,13 @@ body{margin:0;background:radial-gradient(ellipse at top,#182649,#080b16 60%);col
 button{font:inherit;cursor:pointer;border:1px solid #385071;background:#1b2b47;color:var(--text);border-radius:12px;padding:10px 13px}
 button:hover{border-color:var(--cyan);filter:brightness(1.12)}
 button:disabled{opacity:.35;cursor:not-allowed}
+input,select{font:inherit}
 .wrap{max-width:1150px;margin:auto;padding:20px}
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
 .logo{font-weight:900;letter-spacing:.14em;font-size:13px;color:var(--cyan)}
 .rank{font-size:12px;color:var(--muted);border:1px solid var(--line);padding:6px 10px;border-radius:99px}
 .hero{display:grid;grid-template-columns:1.25fr .75fr;gap:16px}
-.panel{background:linear-gradient(145deg,#151e33ee,#0e1424ee);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 14px 40px #0003}
+.panel{background:linear-gradient(145deg,#151e33ee,#0e1424ee);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 14px 40px #0003;margin-bottom:15px}
 .scene{min-height:300px;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
 .scene:before{content:"";position:absolute;width:310px;height:310px;border-radius:50%;background:radial-gradient(circle,#5af4d62c,transparent 68%);animation:pulse 3s infinite}
 .scene>*{position:relative}
@@ -28,7 +29,7 @@ button:disabled{opacity:.35;cursor:not-allowed}
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
 .stat{background:#0b1120;border:1px solid #222f4b;border-radius:13px;padding:12px}
 .stat span{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.1em}
-.stat strong{font-size:23px;display:block;margin-top:3px}
+.stat strong{font-size:23px;display:block;margin-top:3px;overflow-wrap:anywhere}
 .side h2,.sectionhead h2{margin:0;font-size:17px}
 .side p{color:var(--muted);margin:7px 0 15px;font-size:13px}
 .meter{height:8px;background:#26324c;border-radius:99px;overflow:hidden;margin:8px 0 14px}
@@ -49,9 +50,18 @@ button:disabled{opacity:.35;cursor:not-allowed}
 .bottom{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
 .log{height:150px;overflow:auto;color:var(--muted);font-size:12px;display:flex;flex-direction:column-reverse;gap:7px}
 .log div{border-left:2px solid #385071;padding-left:9px}
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#e6fff9;color:#081a20;padding:11px 18px;border-radius:99px;font-weight:800;box-shadow:0 8px 30px #0008;opacity:0;pointer-events:none;transition:.25s}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#e6fff9;color:#081a20;padding:11px 18px;border-radius:99px;font-weight:800;box-shadow:0 8px 30px #0008;opacity:0;pointer-events:none;transition:.25s;z-index:10}
 .toast.show{opacity:1}
 .footer{color:#667594;text-align:center;font-size:11px;padding:20px}
+.petgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.petcard{background:#0b1120;border:1px solid #293754;border-radius:14px;padding:13px;text-align:center}
+.petemoji{font-size:34px}
+.petcard h3{margin:5px 0;font-size:14px}
+.petcard p{font-size:12px;color:var(--muted);margin:4px 0 10px;overflow-wrap:anywhere}
+.eggrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px}
+.ownergrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.ownergrid input,.ownergrid select{width:100%;padding:10px;border-radius:10px;border:1px solid #385071;background:#0b1120;color:var(--text);margin:5px 0 9px}
+.ownergrid button{width:100%;margin-bottom:5px}
 @keyframes pulse{50%{transform:scale(1.12);opacity:.7}}
 @media(max-width:760px){.wrap{padding:12px}.hero,.bottom{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}.scene{min-height:290px}.core{font-size:80px}}
 @media(max-width:420px){.grid{grid-template-columns:1fr 1fr}.panel{padding:13px}.upgrade{padding:11px}}
@@ -60,8 +70,10 @@ button:disabled{opacity:.35;cursor:not-allowed}
 <body>
 <div class="wrap">
 <header class="top">
-  <div><div class="logo">✦ UNKNOWN SYSTEM</div>
-  <div style="font-size:12px;color:var(--muted);margin-top:4px">A tiny universe. A very big number.</div></div>
+  <div>
+    <div class="logo">✦ UNKNOWN SYSTEM</div>
+    <div style="font-size:12px;color:var(--muted);margin-top:4px">A tiny universe. A very big number.</div>
+  </div>
   <div class="rank" id="rank">RANK 0 · ROOKIE</div>
 </header>
 
@@ -109,14 +121,72 @@ button:disabled{opacity:.35;cursor:not-allowed}
   <button data-tab="click">Click gear</button>
   <button data-tab="idle">Auto machines</button>
   <button data-tab="lab">Research lab</button>
+  <button data-tab="eggs">Egg Hatchery</button>
+  <button data-tab="pets">Pet Collection</button>
+  <button data-tab="owner">Owner Panel</button>
 </nav>
 
-<section class="panel">
+<section class="panel" id="upgradePanel">
   <div class="sectionhead">
     <h2 id="upgradeTitle">Upgrade your operation</h2>
     <span class="hint" id="upgradeCount">0 owned</span>
   </div>
   <div class="grid" id="upgrades"></div>
+</section>
+
+<section class="panel" id="petPanel" style="display:none">
+  <div class="sectionhead">
+    <h2>🥚 Egg Hatchery</h2>
+    <span class="hint">Every egg has 5 unique pets</span>
+  </div>
+  <p class="hint">Pets stack their bonuses. Better eggs cost more and contain stronger companions.</p>
+  <div class="eggrow" id="eggs"></div>
+  <div class="sectionhead" style="margin-top:20px">
+    <h2>Your discovered pets</h2>
+    <span class="hint" id="petCount">0 discovered</span>
+  </div>
+  <div class="petgrid" id="petCollection"></div>
+</section>
+
+<section class="panel" id="ownerPanel" style="display:none">
+  <div class="sectionhead">
+    <h2>👑 Owner control room</h2>
+    <span class="rank">LOCAL OWNER ACCESS</span>
+  </div>
+  <p class="hint">Single-player controls for testing your own save. Changes apply immediately in this browser.</p>
+  <div class="ownergrid">
+    <div>
+      <label for="ownerGive">Give energy</label>
+      <input id="ownerGive" type="number" value="1000000" min="0">
+      <button id="giveEnergy">Give energy</button>
+    </div>
+    <div>
+      <label for="ownerSet">Set energy</label>
+      <input id="ownerSet" type="number" value="0" min="0">
+      <button id="setEnergy">Set energy</button>
+    </div>
+    <div>
+      <label for="ownerMult">Set bonus multiplier</label>
+      <input id="ownerMult" type="number" value="1" min="1" step="1">
+      <button id="setMult">Apply multiplier</button>
+    </div>
+    <div>
+      <label for="ownerPet">Grant pet</label>
+      <select id="ownerPet"></select>
+      <button id="grantPet">Grant selected pet</button>
+    </div>
+    <div>
+      <label>Game controls</label>
+      <button id="unlockEggs">Unlock all eggs</button>
+      <button id="ownerSecret">Grant SECRET pet (×10,000)</button>
+    </div>
+    <div>
+      <label>Save controls</label>
+      <button id="ownerSave">Save now</button>
+      <button id="ownerReset">Reset entire save</button>
+    </div>
+  </div>
+  <p class="hint">This panel is available in the local game. It is not a secure online admin system.</p>
 </section>
 
 <div class="bottom">
@@ -129,6 +199,7 @@ button:disabled{opacity:.35;cursor:not-allowed}
   <div class="log" id="log"></div>
 </section>
 </div>
+
 <div class="footer">Progress saves automatically in this browser · No downloads, accounts, or internet required.</div>
 </div>
 <div class="toast" id="toast"></div>
@@ -150,9 +221,26 @@ const defs = [
 {id:"quantum",name:"Quantum Theory",emoji:"🧬",type:"lab",base:12000,growth:1.95,desc:"All production ×2.",factor:2}
 ];
 
+const eggs = [
+{id:"sprout",name:"Sprout Egg",emoji:"🌱",cost:250,pets:[
+["Mossbit","🐸",1.05],["Petal Puff","🌸",1.1],["Acorn Scout","🐿️",1.15],["Dewdrop Fox","🦊",1.2],["Tiny Treant","🌳",1.3]]},
+{id:"ember",name:"Ember Egg",emoji:"🔥",cost:2500,pets:[
+["Cinder Cub","🐻",1.3],["Blazetail","🦊",1.4],["Magma Moth","🦋",1.5],["Coalwing","🐦‍🔥",1.65],["Inferno Drake","🐉",1.8]]},
+{id:"tide",name:"Tide Egg",emoji:"🌊",cost:25000,pets:[
+["Bubblefin","🐟",1.7],["Coral Crawler","🦀",1.85],["Moon Jelly","🪼",2],["Abyssal Seal","🦭",2.2],["Leviathan Pup","🐲",2.5]]},
+{id:"storm",name:"Storm Egg",emoji:"⚡",cost:250000,pets:[
+["Static Sprite","⚡",2.3],["Cloud Hopper","🐇",2.6],["Thunder Lynx","🐈",2.9],["Tempest Owl","🦉",3.3],["Storm Sovereign","🦅",3.8]]},
+{id:"cosmic",name:"Cosmic Egg",emoji:"🌌",cost:2500000,pets:[
+["Nebula Nibbler","🐹",3.5],["Orbit Otter","🦦",4],["Comet Stag","🦌",4.6],["Galaxy Serpent","🐍",5.3],["Starforged Dragon","🐉",6.5]]},
+{id:"void",name:"Void Egg",emoji:"🕳️",cost:25000000,pets:[
+["Null Mite","🪲",6],["Glitch Phantom","👻",7],["Eclipse Hound","🐺",8.5],["Rift Reaper","💀",10],["Void Emperor","👑",15]]}
+];
+
+const secretPet = {id:"secret",name:"THE UNWRITTEN",emoji:"🌠",bonus:10000};
+
 const fresh = () => ({
 energy:0,total:0,clicks:0,prestige:0,
-owned:{},claimed:false,mission:0
+owned:{},claimed:false,mission:0,pets:{},eggUnlocks:0,ownerMult:1
 });
 
 let s=fresh(),tab="all",last=Date.now(),toastTimer;
@@ -160,7 +248,7 @@ let s=fresh(),tab="all",last=Date.now(),toastTimer;
 try {
   const old=JSON.parse(localStorage.getItem("unknown-system-save"));
   if(old&&typeof old==="object"&&old.owned)
-    s={...fresh(),...old,owned:old.owned||{}};
+    s={...fresh(),...old,owned:old.owned||{},pets:old.pets||{}};
 } catch(e) {}
 
 function fmt(n){
@@ -175,8 +263,19 @@ function fmt(n){
 function count(id){return s.owned[id]||0}
 function cost(d){return Math.floor(d.base*Math.pow(d.growth,count(d.id)))}
 
+function petMult(){
+  let m=Math.max(1,Number(s.ownerMult)||1);
+  for(const egg of eggs) {
+    for(const pet of egg.pets) {
+      if(s.pets[pet[0]])m*=Math.pow(pet[2],s.pets[pet[0]]);
+    }
+  }
+  if(s.pets[secretPet.name])m*=Math.pow(secretPet.bonus,s.pets[secretPet.name]);
+  return m;
+}
+
 function mult(){
-  let m=1+s.prestige*.5;
+  let m=(1+s.prestige*.5)*petMult();
   for(const d of defs){
     if(d.mult)m+=count(d.id)*d.mult;
     if(d.factor)m*=Math.pow(d.factor,count(d.id));
@@ -224,7 +323,9 @@ function collect(){
 }
 
 function buy(id){
-  const d=defs.find(x=>x.id===id),c=cost(d);
+  const d=defs.find(x=>x.id===id);
+  if(!d)return;
+  const c=cost(d);
   if(s.energy<c)return;
   s.energy-=c;
   s.owned[id]=count(id)+1;
@@ -241,23 +342,26 @@ function renderUpgrades(){
     const c=cost(d),owned=count(d.id);
     const el=document.createElement("article");
     el.className="upgrade";
-    el.innerHTML=`
-      <div class="emoji">${d.emoji}</div>
-      <h3>${d.name}</h3>
-      <p>${d.desc}</p>
-      <div class="owned">OWNED: ${owned}</div>
-      <button ${s.energy<c?"disabled":""} data-buy="${d.id}">
-        Upgrade · ✦ ${fmt(c)}
-      </button>`;
+    const emoji=document.createElement("div");
+    emoji.className="emoji";
+    emoji.textContent=d.emoji;
+    const title=document.createElement("h3");
+    title.textContent=d.name;
+    const desc=document.createElement("p");
+    desc.textContent=d.desc;
+    const own=document.createElement("div");
+    own.className="owned";
+    own.textContent="OWNED: "+owned;
+    const btn=document.createElement("button");
+    btn.disabled=s.energy<c;
+    btn.textContent="Upgrade · ✦ "+fmt(c);
+    btn.addEventListener("click",()=>buy(d.id));
+    el.append(emoji,title,desc,own,btn);
     $("upgrades").appendChild(el);
   });
 
   $("upgradeCount").textContent=
     defs.reduce((a,d)=>a+count(d.id),0)+" owned";
-
-  $("upgrades").querySelectorAll("[data-buy]").forEach(b=>
-    b.addEventListener("click",()=>buy(b.dataset.buy))
-  );
 
   const names={
     all:"Upgrade your operation",
@@ -265,7 +369,85 @@ function renderUpgrades(){
     idle:"Machines that work for you",
     lab:"Break the rules of energy"
   };
-  $("upgradeTitle").textContent=names[tab];
+  $("upgradeTitle").textContent=names[tab]||"Upgrade your operation";
+}
+
+function hatch(id){
+  const egg=eggs.find(e=>e.id===id);
+  if(!egg)return;
+  if(s.energy<egg.cost){toast("Not enough energy for this egg!");return;}
+  s.energy-=egg.cost;
+  const pet=egg.pets[Math.floor(Math.random()*egg.pets.length)];
+  s.pets[pet[0]]=(s.pets[pet[0]]||0)+1;
+  note("Hatched "+pet[0]+"! Bonus ×"+pet[2]+".");
+  toast("You hatched "+pet[0]+"!");
+  render();
+}
+
+function renderPets(){
+  $("eggs").innerHTML="";
+  eggs.forEach(e=>{
+    const card=document.createElement("article");
+    card.className="petcard";
+    const emoji=document.createElement("div");
+    emoji.className="petemoji";
+    emoji.textContent=e.emoji;
+    const title=document.createElement("h3");
+    title.textContent=e.name;
+    const desc=document.createElement("p");
+    desc.textContent="Cost: ✦ "+fmt(e.cost)+" · 5 possible pets";
+    const btn=document.createElement("button");
+    btn.textContent="Hatch egg";
+    btn.disabled=s.energy<e.cost;
+    btn.addEventListener("click",()=>hatch(e.id));
+    card.append(emoji,title,desc,btn);
+    $("eggs").appendChild(card);
+  });
+
+  const found=[];
+  eggs.forEach(e=>e.pets.forEach(p=>{
+    if(s.pets[p[0]])found.push({
+      name:p[0],emoji:p[1],bonus:p[2],count:s.pets[p[0]]
+    });
+  }));
+
+  if(s.pets[secretPet.name])found.push({
+    name:secretPet.name,emoji:secretPet.emoji,
+    bonus:secretPet.bonus,count:s.pets[secretPet.name]
+  });
+
+  $("petCollection").innerHTML="";
+  if(!found.length){
+    $("petCollection").innerHTML='<p class="hint">No pets yet. Hatch your first egg!</p>';
+  }else{
+    found.forEach(p=>{
+      const card=document.createElement("article");
+      card.className="petcard";
+      const emoji=document.createElement("div");
+      emoji.className="petemoji";
+      emoji.textContent=p.emoji;
+      const title=document.createElement("h3");
+      title.textContent=p.name;
+      const desc=document.createElement("p");
+      desc.textContent="Owned: "+p.count+" · Each gives ×"+fmt(p.bonus)+" production";
+      card.append(emoji,title,desc);
+      $("petCollection").appendChild(card);
+    });
+  }
+
+  $("petCount").textContent=found.length+" unique types discovered";
+
+  $("ownerPet").innerHTML="";
+  eggs.flatMap(e=>e.pets).forEach(p=>{
+    const option=document.createElement("option");
+    option.value=p[0];
+    option.textContent=p[0]+" (×"+p[2]+")";
+    $("ownerPet").appendChild(option);
+  });
+  const secretOption=document.createElement("option");
+  secretOption.value=secretPet.name;
+  secretOption.textContent=secretPet.name+" (×10000)";
+  $("ownerPet").appendChild(secretOption);
 }
 
 function render(){
@@ -299,7 +481,6 @@ function render(){
   $("missionBar").style.width=Math.min(100,s.mission/10)+"%";
   $("claim").disabled=s.mission<1000||s.claimed;
   $("claim").textContent=s.claimed?"Claimed ✓":"Claim +500 energy";
-
   $("prestige").disabled=s.total<10000;
 
   const ms=[
@@ -323,6 +504,7 @@ function render(){
 
   $("rank").textContent="RANK "+s.prestige+" · "+(s.prestige?"REALITY ENGINEER":"ROOKIE");
   renderUpgrades();
+  renderPets();
 }
 
 function save(){
@@ -343,10 +525,15 @@ $("core").addEventListener("click",collect);
 $("tabs").querySelectorAll("button").forEach(b=>
   b.addEventListener("click",()=>{
     tab=b.dataset.tab;
+    $("petPanel").style.display=(tab==="eggs"||tab==="pets")?"block":"none";
+    $("ownerPanel").style.display=tab==="owner"?"block":"none";
+    $("upgradePanel").style.display=["eggs","pets","owner"].includes(tab)?"none":"block";
+
     $("tabs").querySelectorAll("button").forEach(x=>
       x.classList.toggle("active",x===b)
     );
     renderUpgrades();
+    renderPets();
   })
 );
 
@@ -372,6 +559,57 @@ $("prestige").addEventListener("click",()=>{
   toast("Reality rebooted · ×"+(1+p*.5));
 });
 
+$("giveEnergy").addEventListener("click",()=>{
+  const n=Math.max(0,Number($("ownerGive").value)||0);
+  add(n);
+  note("Owner granted "+fmt(n)+" energy.");
+  render();
+});
+
+$("setEnergy").addEventListener("click",()=>{
+  s.energy=Math.max(0,Number($("ownerSet").value)||0);
+  render();
+  toast("Energy set.");
+});
+
+$("setMult").addEventListener("click",()=>{
+  s.ownerMult=Math.max(1,Number($("ownerMult").value)||1);
+  render();
+  toast("Owner multiplier applied.");
+});
+
+$("grantPet").addEventListener("click",()=>{
+  const n=$("ownerPet").value;
+  if(!n)return;
+  s.pets[n]=(s.pets[n]||0)+1;
+  note("Owner granted pet: "+n);
+  render();
+});
+
+$("unlockEggs").addEventListener("click",()=>{
+  s.energy=Math.max(s.energy,1e30);
+  note("Owner unlocked all eggs with a huge energy grant.");
+  render();
+});
+
+$("ownerSecret").addEventListener("click",()=>{
+  s.pets[secretPet.name]=(s.pets[secretPet.name]||0)+1;
+  note("SECRET PET GRANTED: ×10,000 production!");
+  render();
+  toast("THE UNWRITTEN acquired!");
+});
+
+$("ownerSave").addEventListener("click",save);
+
+$("ownerReset").addEventListener("click",()=>{
+  if(confirm("Delete this game's local save and restart?")){
+    s=fresh();
+    saveSilent();
+    render();
+    note("Save reset by owner.");
+  }
+});
+
 $("save").addEventListener("click",save);
 
 setInterval(()=>{
@@ -393,3 +631,4 @@ render();
 </script>
 </body>
 </html>
+
